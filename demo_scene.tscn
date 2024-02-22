@@ -1,0 +1,144 @@
+[gd_scene load_steps=15 format=3 uid="uid://coyqcr3xvkpdb"]
+
+[ext_resource type="PackedScene" uid="uid://bydencqvs0d68" path="res://addons/occlusion-portals/scripts/portal/portal.tscn" id="1_gah8y"]
+[ext_resource type="Shader" uid="uid://jag27wvk5h8l" path="res://example_shader.tres" id="2_3fxss"]
+[ext_resource type="Script" path="res://addons/occlusion-portals/scripts/PortalTracker.gd" id="3_vbxut"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pe7qj"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tg244"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_74fij"]
+render_priority = 0
+shader = ExtResource("2_3fxss")
+shader_parameter/albedo = Color(1, 0, 0, 1)
+shader_parameter/A = null
+shader_parameter/B = null
+shader_parameter/C = null
+shader_parameter/D = null
+shader_parameter/IsSameWorld = null
+
+[sub_resource type="BoxMesh" id="BoxMesh_otaxw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ynkpl"]
+render_priority = 0
+shader = ExtResource("2_3fxss")
+shader_parameter/albedo = Color(0, 1, 0, 1)
+shader_parameter/A = null
+shader_parameter/B = null
+shader_parameter/C = null
+shader_parameter/D = null
+shader_parameter/IsSameWorld = null
+
+[sub_resource type="SphereMesh" id="SphereMesh_78ouw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ikp5p"]
+render_priority = 0
+shader = ExtResource("2_3fxss")
+shader_parameter/albedo = Color(0, 0, 1, 1)
+shader_parameter/A = null
+shader_parameter/B = null
+shader_parameter/C = null
+shader_parameter/D = null
+shader_parameter/IsSameWorld = null
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5kfgo"]
+
+[sub_resource type="Environment" id="Environment_o3j07"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6pxvo"]
+
+[sub_resource type="GDScript" id="GDScript_spaut"]
+script/source = "extends SpringArm3D
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta : float) -> void:
+	self.rotation.y += delta * 0.75
+"
+
+[node name="DemoScene" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_pe7qj")
+
+[node name="Pillar" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(0.01, 0, 0, 0, 0.2, 0, 0, 0, 0.01, 0.25, 0.2, 0.25)
+mesh = SubResource("CylinderMesh_tg244")
+
+[node name="Pillar2" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(0.01, 0, 0, 0, 0.2, 0, 0, 0, 0.01, -0.25, 0.2, 0.25)
+mesh = SubResource("CylinderMesh_tg244")
+
+[node name="Pillar3" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(0.01, 0, 0, 0, 0.2, 0, 0, 0, 0.01, 0.25, 0.2, -0.25)
+mesh = SubResource("CylinderMesh_tg244")
+
+[node name="Pillar4" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(0.01, 0, 0, 0, 0.2, 0, 0, 0, 0.01, -0.25, 0.2, -0.25)
+mesh = SubResource("CylinderMesh_tg244")
+
+[node name="Top" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(-0.25, 2.18557e-08, 0, -2.18557e-08, -0.25, 0, 0, 0, 0.25, 0, 0.4, 0)
+mesh = SubResource("PlaneMesh_pe7qj")
+
+[node name="Portal" parent="Floor" instance=ExtResource("1_gah8y")]
+transform = Transform3D(0.5, 0, 0, 0, 0.4, 0, 0, 0, 0.5, 0, 0.2, 0.25)
+
+[node name="Portal2" parent="Floor" instance=ExtResource("1_gah8y")]
+transform = Transform3D(0.5, 0, 0, 0, 0.4, 0, 0, 0, 0.5, 0, 0.2, -0.25)
+world = 1
+
+[node name="Portal3" parent="Floor" instance=ExtResource("1_gah8y")]
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.4, 0, -0.5, 0, -2.18557e-08, 0.25, 0.2, 0)
+world = 2
+
+[node name="Portal4" parent="Floor" instance=ExtResource("1_gah8y")]
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.4, 0, -0.5, 0, -2.18557e-08, -0.25, 0.2, 0)
+world = 3
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.1, 0)
+material_override = SubResource("ShaderMaterial_74fij")
+mesh = SubResource("BoxMesh_otaxw")
+skeleton = NodePath("")
+
+[node name="PortalTracker" type="Node" parent="MeshInstance3D"]
+script = ExtResource("3_vbxut")
+world = 1
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.1, 0)
+material_override = SubResource("ShaderMaterial_ynkpl")
+mesh = SubResource("SphereMesh_78ouw")
+skeleton = NodePath("")
+
+[node name="PortalTracker" type="Node" parent="MeshInstance3D2"]
+script = ExtResource("3_vbxut")
+world = 2
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.1, 0)
+material_override = SubResource("ShaderMaterial_ikp5p")
+mesh = SubResource("CylinderMesh_5kfgo")
+skeleton = NodePath("")
+
+[node name="PortalTracker" type="Node" parent="MeshInstance3D3"]
+script = ExtResource("3_vbxut")
+world = 3
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o3j07")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(0.999994, 0, 0.00349065, 0, 1, 0, -0.00349065, 0, 0.999994, 0, 0.2, 0)
+shape = SubResource("SphereShape3D_6pxvo")
+script = SubResource("GDScript_spaut")
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+current = true

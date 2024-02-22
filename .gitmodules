@@ -1,0 +1,3 @@
+[submodule "addons/Godot-Occlusion-Portals"]
+	path = addons/Godot-Occlusion-Portals
+	url = https://github.com/ArmainAP/Godot-Occlusion-Portals.git
