@@ -5,7 +5,7 @@ code = "shader_type spatial;
 
 uniform vec4 albedo : source_color;
 
-#include \"addons/occlusion-portals/shaders/portal_functions.gdshaderinc\"
+#include \"addons/Godot-Occlusion-Portals/shaders/portal_functions.gdshaderinc\"
 
 void fragment() {
 	ALBEDO = albedo.rgb;

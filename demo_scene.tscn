@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://coyqcr3xvkpdb"]
 
-[ext_resource type="PackedScene" uid="uid://bydencqvs0d68" path="res://addons/occlusion-portals/scripts/portal/portal.tscn" id="1_gah8y"]
+[ext_resource type="PackedScene" uid="uid://bydencqvs0d68" path="res://addons/Godot-Occlusion-Portals/scripts/portal/portal.tscn" id="1_gah8y"]
 [ext_resource type="Shader" uid="uid://jag27wvk5h8l" path="res://example_shader.tres" id="2_3fxss"]
-[ext_resource type="Script" path="res://addons/occlusion-portals/scripts/PortalTracker.gd" id="3_vbxut"]
+[ext_resource type="Script" path="res://addons/Godot-Occlusion-Portals/scripts/PortalTracker.gd" id="3_vbxut"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pe7qj"]
 
