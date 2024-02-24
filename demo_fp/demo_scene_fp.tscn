@@ -28,5 +28,7 @@ light_indirect_energy = 0.884
 light_volumetric_fog_energy = 0.768
 shadow_enabled = true
 
-[node name="BasicBlock" parent="." instance=ExtResource("2_ce18n")]
+[node name="World_0" type="Node3D" parent="."]
+
+[node name="BasicBlock" parent="World_0" instance=ExtResource("2_ce18n")]
 transform = Transform3D(15, 0, 0, 0, 0.15, 0, 0, 0, 15, 0, 0, 0)
