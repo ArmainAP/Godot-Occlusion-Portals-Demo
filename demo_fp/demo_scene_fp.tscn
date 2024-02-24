@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctahsvj88g1om"]
+
+[ext_resource type="PackedScene" uid="uid://7gv6q50fuutj" path="res://demo_fp/Scenes/Player/player.tscn" id="1_1wyec"]
+[ext_resource type="PackedScene" uid="uid://dj26sacnhty4r" path="res://addons/devblocks/blocks/basic_block.tscn" id="2_ce18n"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6g5uc"]
+
+[sub_resource type="Sky" id="Sky_ivwug"]
+sky_material = SubResource("ProceduralSkyMaterial_6g5uc")
+
+[sub_resource type="Environment" id="Environment_l5pxq"]
+background_mode = 2
+background_color = Color(0.2139, 0.570975, 0.69, 1)
+sky = SubResource("Sky_ivwug")
+
+[node name="Node3d" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l5pxq")
+
+[node name="Player" parent="." instance=ExtResource("1_1wyec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
+
+[node name="DirectionalLight3d" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.966349, 0.250904, -0.0567091, 0.182362, -0.512743, 0.838951, 0.181419, -0.821061, -0.541244, -0.00693703, 59.5145, -109.348)
+light_energy = 1.232
+light_indirect_energy = 0.884
+light_volumetric_fog_energy = 0.768
+shadow_enabled = true
+
+[node name="BasicBlock" parent="." instance=ExtResource("2_ce18n")]
+transform = Transform3D(15, 0, 0, 0, 0.15, 0, 0, 0, 15, 0, 0, 0)
